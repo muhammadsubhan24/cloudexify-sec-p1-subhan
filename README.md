@@ -18,9 +18,34 @@ The assessment followed standard penetration testing steps:
 
 ### 3. Key Findings
 * **Host OS:** Unix (Samba 3.0.20-Debian)
-* **Critical Vulnerability:** SMBv1 Message Signing is **Disabled (Dangerous)**. This misconfiguration allows attackers to perform Man-in-the-Middle (MITM) attacks and hijack sessions.
+* **Critical Vulnerability:** The target host (10.0.2.4) has multiple open ports including FTP (21), SSH (22), Telnet (23), HTTP (80), SMB (139,445), MySQL (3306), PostgreSQL (5432), and Apache Tomcat (8180).
+- Anonymous FTP login is enabled.
+- SMB message signing is disabled, increasing the risk of Man-in-the-Middle (MITM) attacks.
+- Telnet and FTP transmit data in plain text, making credentials vulnerable to interception.
+- The system is running outdated software versions that may contain known vulnerabilities.
 * **Unencrypted Protocols:** Cleartext protocols (like FTP/Telnet) are available on the target, risking credential exposure[cite: 1].
 
-### 4. Remediation & Recommendations
-* **Enforce Message Signing:** Enable SMB signing by updating `smb.conf` with `server signing = mandatory`.
-* **Disable Insecure Services:** Turn off legacy or unencrypted protocols and enforce secure alternatives like SSH (Port 22)[cite: 1].
+* ## 4. Wireshark Traffic Analysis
+
+Wireshark was used to monitor network traffic during the assessment.
+
+Observed protocols:
+- NTP (Network Time Protocol)
+- ARP (Address Resolution Protocol)
+
+Observations:
+- NTP traffic was exchanged between 10.0.2.3 and 203.80.128.20.
+- ARP requests and replies were observed between the attacker and gateway.
+- No encrypted application traffic was observed during the capture.
+
+### 5. Remediation & Recommendations
+- Disable Anonymous FTP access.
+- Disable Telnet and use SSH instead.
+- Enable SMB message signing.
+- Update outdated services and operating system packages.
+- Restrict unnecessary open ports using a firewall.
+- Perform regular vulnerability assessments.
+
+## 6. Conclusion
+
+The penetration test successfully identified multiple exposed services and insecure configurations on the target system. Implementing the recommended security controls will significantly reduce the attack surface and improve the overall security posture.
