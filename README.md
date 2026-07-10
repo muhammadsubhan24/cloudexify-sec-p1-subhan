@@ -18,7 +18,8 @@ The assessment followed standard penetration testing steps:
 
 ### 3. Key Findings
 * **Host OS:** Unix (Samba 3.0.20-Debian)
-* **Critical Vulnerability:** The target host (10.0.2.4) has multiple open ports including FTP (21), SSH (22), Telnet (23), HTTP (80), SMB (139,445), MySQL (3306), PostgreSQL (5432), and Apache Tomcat (8180).
+* **Critical Vulnerability:** 
+- The target host (10.0.2.4) has multiple open ports including FTP (21), SSH (22), Telnet (23), HTTP (80), SMB (139,445), MySQL (3306), PostgreSQL (5432), and Apache Tomcat (8180).
 - Anonymous FTP login is enabled.
 - SMB message signing is disabled, increasing the risk of Man-in-the-Middle (MITM) attacks.
 - Telnet and FTP transmit data in plain text, making credentials vulnerable to interception.
@@ -45,6 +46,7 @@ Observations:
 - Update outdated services and operating system packages.
 - Restrict unnecessary open ports using a firewall.
 - Perform regular vulnerability assessments.
+
 
 ## 6. Conclusion
 
